@@ -1,7 +1,7 @@
 {
-  "name": "learning-nodejs",
+  "name": "grello",
   "version": "1.0.0",
-  "description": "### 1- Node Package Manager (NPM) 1.1 La commande npm",
+  "description": "### 1- Node Package Manager (NPM) 1.1 La commande npm ### 2- Porjet Final ESGI",
   "main": "index.js",
   "dependencies": {
     "bluebird": "^3.5.0",
@@ -19,12 +19,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/julien-sarazin/learning-nodejs.git"
+    "url": "git+https://github.com/fabiensebban/grello.git"
   },
-  "author": "",
+  "author": "BARRE Amélie, GHANSUM Nourdine, MOUMOU Youness, POL Patrick, SEBBAN Fabien",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/julien-sarazin/learning-nodejs/issues"
-  },
-  "homepage": "https://github.com/julien-sarazin/learning-nodejs#readme"
+  "homepage": "https://github.com/fabiensebban/grello#readme"
 }
