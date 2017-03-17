@@ -10,7 +10,7 @@ module.exports = (server) => {
         remove
     }
 
-    function create(req, res, next) => {
+    function create(req, res, next) {
       let user = null;
       return User.findById(req.user.id)
           .then(server.utils.ensureOne)
@@ -43,21 +43,21 @@ module.exports = (server) => {
 
     }
 
-    function list(req, res, next) => {
+    function list(req, res, next) {
       Project.find()
             .then(res.commit)
             .catch(res.error);
     }
 
-    function show(req, res, next) => {
+    function show(req, res, next) {
 
     }
 
-    function update(req, res, next) => {
+    function update(req, res, next) {
 
     }
 
-    function remove(req, res, next) => {
+    function remove(req, res, next) {
 
     }
 
