@@ -1,7 +1,7 @@
 module.exports = (server) => {
     const Project = server.models.Project;
     const User = server.models.User;
-    
+
 
     return {
         create,
@@ -59,7 +59,12 @@ module.exports = (server) => {
     }
 
     function update(req, res, next) {
-
+      Project.findByIdAndUpdate(req.body.id, req.body)
+            .then(server.utils.ensureOne)
+            .catch(server.utils.reject(404, 'project.not.found'))
+            .then(server.utils.empty)
+            .then(res.commit)
+            .then(res.error)
     }
 
     function remove(req, res, next) {
