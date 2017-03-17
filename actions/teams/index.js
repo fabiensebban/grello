@@ -106,8 +106,8 @@ module.exports = (server) => {
         function addMember(team) {
             return User.finById(req.params.UserId)
                        .then(addToTeam)
-                       .catch(server.utils.reject(403, 'member.not.exist'));
-                       .then(returnTeam)
+                       .catch(server.utils.reject(403, 'member.not.exist'))
+                       .then(returnTeam);
 
             function addToTeam() {
                 team.members.push(req.params.UserId);
