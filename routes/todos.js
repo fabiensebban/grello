@@ -7,7 +7,7 @@ module.exports = (server) => {
         server.middlewares.ensureAuthenticated,
         server.middlewares.ensureRights('todos.create'),
         server.middlewares.bodyParser.json(),
-        server.middlewares.ensureFields('title'),
+        server.middlewares.ensureFields(['title', 'projectId']),
         server.middlewares.cache.clean('todos'),
         server.actions.todos.create
     );

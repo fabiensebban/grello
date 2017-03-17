@@ -23,16 +23,17 @@ module.exports = (server) => {
                 ref: 'Todo'
             }
         ],
-        role: {
-            type: Schema.Types.ObjectId,
-            ref: 'Role',
-            select: false
-        },
         teams: [
-            {
+          {
+            team :{
                 type: Schema.Types.ObjectId,
                 ref: 'Team'
+            },
+            role : {
+                type: Schema.Types.ObjectId,
+                ref: 'Role'
             }
+          }
         ],
     });
 
