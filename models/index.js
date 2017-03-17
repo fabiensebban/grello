@@ -7,6 +7,8 @@ module.exports = (server) => {
     server.models = {
         User: require('./User')(server),
         Todo: require('./Todo')(server),
-        Role: require('./Role')(server)
+        Role: require('./Role')(server),
+        Team: require('./Team')(server),
+        Project: require('./Project')(server)
     }
 };

@@ -17,14 +17,12 @@ module.exports = (server) => {
             required: true,
             select: false
         },
-
         tasks: [
             {
                 type: Schema.Types.ObjectId,
                 ref: 'Todo'
             }
         ],
-
         role: {
             type: Schema.Types.ObjectId,
             ref: 'Role',
