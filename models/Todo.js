@@ -4,7 +4,11 @@ module.exports = (server) => {
     const Schema = server.mongoose.Schema;
 
     const TodoSchema = new Schema({
-        title: String,
+        title: {
+          type: String,
+          required: true
+        },
+        description: String,
         dueDate: Date,
         creator: {
             type: Schema.Types.ObjectId,
@@ -14,7 +18,7 @@ module.exports = (server) => {
             type: Schema.Types.ObjectId,
             ref: 'User'
         },
-        proejct: {
+        project: {
             type: Schema.Types.ObjectId,
             ref: 'Project'
         },

@@ -17,6 +17,9 @@ module.exports = (server) => {
         return User.findById(req.user.id)
             .then(server.utils.ensureOne)
             .catch(server.utils.reject(403, 'invalid.user'))
+            .then(findProject)
+            .then(server.utils.ensureOne)
+            .catch(server.utils.reject(403, 'invalid.project'))
             .then(createTodo)
             .then(setCreatorAndAssign)
             .then(persist)
@@ -46,6 +49,15 @@ module.exports = (server) => {
 
             function returnTodo() {
                 return todo;
+            }
+        }
+
+        function findProject(){
+            return Project.findById(req.body.projectId)
+                .then(set);
+
+            function set(data){
+                return newAssignedProject = data;
             }
         }
     }
@@ -94,4 +106,3 @@ module.exports = (server) => {
             .catch(res.error);
     }
 };
-
