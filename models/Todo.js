@@ -6,16 +6,18 @@ module.exports = (server) => {
     const TodoSchema = new Schema({
         title: String,
         dueDate: Date,
-
         creator: {
             type: Schema.Types.ObjectId,
             ref: 'User'
         },
-
         assigned: {
             type: Schema.Types.ObjectId,
             ref: 'User'
-        }
+        },
+        proejct: {
+            type: Schema.Types.ObjectId,
+            ref: 'Project'
+        },
     });
 
     TodoSchema.plugin(timestamps);
