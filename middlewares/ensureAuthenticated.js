@@ -33,7 +33,7 @@ module.exports = (server) => {
         }
 
         function findAssociatedUser(decryptedToken) {
-            return User.findById(decryptedToken.data.userId, '+role')
+            return User.findById(decryptedToken.data.userId)
         }
 
         function setAuthorization(user) {
@@ -41,12 +41,12 @@ module.exports = (server) => {
                 id: user._id.toString()
             };
 
-            return Role.findById(user.role)
+            /*return Role.findById(user.role)
                 .then(setAccessLevel);
 
             function setAccessLevel(role){
                 req.user.accessLevel = role.level;
-            }
+            } */
 
         }
 

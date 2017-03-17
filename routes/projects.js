@@ -5,10 +5,10 @@ module.exports = (server) => {
 
     router.post('/',
         server.middlewares.ensureAuthenticated,
-        server.middlewares.ensureRights('projects.create'),
+        //server.middlewares.ensureRights('projects.create'),
         server.middlewares.bodyParser.json(),
         server.middlewares.ensureFields('name'),
-        server.actions.todos.create
+        server.actions.projects.create
     );
 
     router.get('/',
@@ -23,14 +23,14 @@ module.exports = (server) => {
     router.put('/',
       server.middlewares.ensureAuthenticated,
       server.middlewares.bodyParser.json(),
-      server.actions.todos.update);
+      server.actions.projects.update);
 
     router.delete('/:id',
       server.middlewares.ensureAuthenticated,
-      server.actions.todos.remove
+      server.actions.projects.remove
     );
 
-    
+
 
     return router;
 };
