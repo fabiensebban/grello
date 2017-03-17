@@ -105,12 +105,13 @@ module.exports = (server) => {
 
         function addMember(team) {
             return User.finById(req.params.UserId)
-                       .then(addToTeam)
+                       .then(server.utils.ensureOne)
                        .catch(server.utils.reject(403, 'member.not.exist'))
+                       .then(addToTeam)
                        .then(returnTeam);
 
             function addToTeam() {
-                team.members.push(req.params.UserId);
+                team.members.push({user: req.params.UserId, role: 'owner'});
             }
 
             function returnTeam() {
