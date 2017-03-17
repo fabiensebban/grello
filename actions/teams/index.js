@@ -9,23 +9,24 @@ module.exports = (server) => {
         remove
     }
 
-    function create(req, res, next) => {
+    function create(req, res, next) {
 
     }
 
-    function list(req, res, next) => {
+    function list(req, res, next) {
 
     }
 
-    function show(req, res, next) => {
+    function show(req, res, next) {
 
     }
 
-    function update(req, res, next) => {
+    function update(req, res, next) {
 
     }
 
-    function remove(req, res, next) => {
+
+    function remove(req, res, next) {
 
     }
 }
