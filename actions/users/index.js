@@ -36,7 +36,6 @@ module.exports = (server) => {
         }
     }
 
-
     function list(req, res, next) {
         User.find()
             .then(res.commit)
