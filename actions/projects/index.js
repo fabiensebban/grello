@@ -51,7 +51,7 @@ module.exports = (server) => {
     }
 
     function show(req, res, next) {
-      Project.findById(req.params.id)
+      Project.findById(req.body.id)
             .then(server.utils.ensureOne)
             .catch(server.utils.reject(404, 'project.not.found'))
             .then(res.commit)
@@ -68,7 +68,7 @@ module.exports = (server) => {
     }
 
     function remove(req, res, next) {
-      Project.findByIdAndRemove(req.params.id)
+      Project.findByIdAndRemove(req.body.id)
             .then(server.utils.ensureOne)
             .catch(server.utils.reject(404, 'project.not.found'))
             .then(server.utils.empty)
