@@ -26,6 +26,7 @@ module.exports = (server) => {
 
         function createUser() {
             user.password = sha1(user.password);
+            return user.save();
         }
     }
 
