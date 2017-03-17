@@ -21,8 +21,14 @@ module.exports = (server) => {
         },
         members: [
             {
-                type: Schema.Types.ObjectId,
-                ref: 'User'
+                user: {
+                    type: Schema.Types.ObjectId,
+                    ref: 'User'
+                },
+                role: {
+                    type: Schema.Types.ObjectId,
+                    ref: 'Role'
+                }
             }
         ],
     });

@@ -37,7 +37,7 @@ module.exports = (server) => {
     }
 
     function list(req, res, next) {
-        User.find()
+        User.finds()
             .then(res.commit)
             .catch(res.error);
     }
@@ -69,5 +69,3 @@ module.exports = (server) => {
             .catch(res.error);
     }
 };
-
-
