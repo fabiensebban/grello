@@ -14,7 +14,9 @@ module.exports = (server) => {
     }
 
     function list(req, res, next) {
-
+        Team.finds()
+            .then(res.commit)
+            .catch(res.error);
     }
 
     function show(req, res, next) {
