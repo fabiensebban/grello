@@ -21,6 +21,7 @@ module.exports = (server) => {
     }
 
     function ensureOne(data) {
+        console.log(data);
         return (data) ? data : Promise.reject();
     }
 

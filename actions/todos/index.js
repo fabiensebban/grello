@@ -1,6 +1,7 @@
 module.exports = (server) => {
     const Todo = server.models.Todo;
     const User = server.models.User;
+    const Project = server.models.Project;
 
     return {
         create,
@@ -13,51 +14,58 @@ module.exports = (server) => {
 
     function create(req, res, next) {
         let user = null;
+        /*
+        # Une tache doit obligatoirement être associée à un projet.
+        # Une tache ne peut être créée que par le créateur du projet ou un
+          membre de l'équipe associée au projet.
+        */
 
+        /*
+            findUser(req.user.id)
+          .then(server.utils.ensureOne)
+          .catch(server.utils.reject(403, 'invalid.user'))
+        */
+        
         return User.findById(req.user.id)
-            .then(server.utils.ensureOne)
-            .catch(server.utils.reject(403, 'invalid.user'))
-            .then(findProject)
-            .then(server.utils.ensureOne)
-            .catch(server.utils.reject(403, 'invalid.project'))
-            .then(createTodo)
-            .then(setCreatorAndAssign)
-            .then(persist)
-            .then(res.commit)
-            .catch(res.error);
+                    .then(server.utils.ensureOne)
+                    .catch(res.status(404).send('user.not.found'))
+                    .then(findAndVerifyProject)
+                    .then(persist)
+                    .then(res.commit)
+                    .catch(res.error);
 
-        function createTodo(data) {
-            user = data;
-            return new Todo(req.body);
+        function findAndVerifyProject() {
+
+            Project.findById(req.body.projectId)
+                    .then(server.utils.ensureOne)
+                    .catch(res.status(403).send('user.is.not.project.owner'))
+                    .then(isProjectOwner)
+                    .catch(res.status(403).send('user.is.not.project.owner'));
+
+            function isProjectOwner(project) {
+              console.log(project.owner, req.user.id);
+              return null;
+              if (req.user.id == project.owner) {
+                return project;
+              }
+                return Promise.reject(res.status(403).send('user.is.not.project.owner'));
+            }
         }
 
-        function setCreatorAndAssign(todo) {
+        function createAndAssignTodo(project) {
+            let todo = new Todo(req.body);
+            todo.project = project.id;
             todo.creator = req.user.id;
-            todo.assigned = req.user.id;
+
             return todo;
         }
 
         function persist(todo) {
             return todo.save()
-                .then(addToUser)
                 .then(returnTodo);
-
-            function addToUser(todo) {
-                user.tasks.push(todo._id);
-                user.save()
-            }
 
             function returnTodo() {
                 return todo;
-            }
-        }
-
-        function findProject(){
-            return Project.findById(req.body.projectId)
-                .then(set);
-
-            function set(data){
-                return newAssignedProject = data;
             }
         }
     }
