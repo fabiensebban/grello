@@ -25,30 +25,26 @@ module.exports = (server) => {
           .then(server.utils.ensureOne)
           .catch(server.utils.reject(403, 'invalid.user'))
         */
-        
+
         return User.findById(req.user.id)
                     .then(server.utils.ensureOne)
-                    .catch(res.status(404).send('user.not.found'))
+                    .catch(server.utils.reject(403, 'invalid.user'))
                     .then(findAndVerifyProject)
                     .then(persist)
                     .then(res.commit)
                     .catch(res.error);
 
         function findAndVerifyProject() {
-
             Project.findById(req.body.projectId)
                     .then(server.utils.ensureOne)
-                    .catch(res.status(403).send('user.is.not.project.owner'))
-                    .then(isProjectOwner)
-                    .catch(res.status(403).send('user.is.not.project.owner'));
+                    .then(isProjectOwner);
 
             function isProjectOwner(project) {
-              console.log(project.owner, req.user.id);
-              return null;
-              if (req.user.id == project.owner) {
+              console.log(project.owner + '-'+ req.user.id);
+              if (req.user.id.toString() == project.owner.toString()) {
                 return project;
               }
-                return Promise.reject(res.status(403).send('user.is.not.project.owner'));
+                return null;//Promise.reject(res.status(403).send('user.is.not.project.owner'));
             }
         }
 
