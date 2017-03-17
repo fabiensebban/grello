@@ -50,7 +50,11 @@ module.exports = (server) => {
     }
 
     function show(req, res, next) => {
-
+      Project.findById(req.params.id)
+            .then(server.utils.ensureOne)
+            .catch(server.utils.reject(404, 'project.not.found'))
+            .then(res.commit)
+            .catch(res.error);
     }
 
     function update(req, res, next) => {
@@ -58,7 +62,12 @@ module.exports = (server) => {
     }
 
     function remove(req, res, next) => {
-
+      Project.findByIdAndRemove(req.params.id)
+            .then(server.utils.ensureOne)
+            .catch(server.utils.reject(404, 'project.not.found'))
+            .then(server.utils.empty)
+            .then(res.commit)
+            .catch(res.error);
     }
 
 }
