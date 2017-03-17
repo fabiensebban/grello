@@ -1,6 +1,7 @@
 module.exports = (server) => {
     const Project = server.models.Project;
     const User = server.models.User;
+    const Team = server.models.Team;
 
 
     return {
@@ -50,12 +51,35 @@ module.exports = (server) => {
             .catch(res.error);
     }
 
+    // Permet d'afficher la liste des todos
     function show(req, res, next) {
-      Project.findById(req.body.id)
-            .then(server.utils.ensureOne)
-            .catch(server.utils.reject(404, 'project.not.found'))
-            .then(res.commit)
-            .catch(res.error);
+      return Project.findById(req.params.id)
+              .then(server.utils.ensureOne)
+              .catch(res.status(500).send("error : project not found"))
+              .then(isMember)
+              .then(res.commit)
+              .catch(res.error);
+
+
+              function isMember(){
+                //On a le projects
+                  Team.findById(req.params.id)
+                    .then(server.utils.ensureOne)
+                    .catch(res.status(500).send("error : project not found"))
+                    .then(findMember)
+                    .catch(res.status(500).send("error : user is not member in this project"));
+
+              }
+
+              function findMember(team){
+                let members = team.members;
+                members.forEach((member) => {
+                  if(member.user==req.user.id){
+                    return member;
+                  }
+                });
+                return;
+              }
     }
 
     function update(req, res, next) {
@@ -68,7 +92,7 @@ module.exports = (server) => {
     }
 
     function remove(req, res, next) {
-      Project.findByIdAndRemove(req.body.id)
+      Project.findByIdAndRemove(req.params.id)
             .then(server.utils.ensureOne)
             .catch(server.utils.reject(404, 'project.not.found'))
             .then(server.utils.empty)
