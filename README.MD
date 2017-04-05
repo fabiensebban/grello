@@ -7,7 +7,7 @@
 npm install
 ```
 
-### 2- Auters
+### 2- Auteurs
 
 ```bash
 BARRE Amélie
